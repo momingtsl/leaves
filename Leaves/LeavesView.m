@@ -49,36 +49,36 @@ CGFloat distance(CGPoint a, CGPoint b);
 	topPageShadow.startPoint = CGPointMake(1,0.5);
 	topPageShadow.endPoint = CGPointMake(0,0.5);
 	
-	topPageReverse = [[CALayer alloc] init];
-	topPageReverse.backgroundColor = [[UIColor whiteColor] CGColor];
-	topPageReverse.masksToBounds = YES;
-	
-	topPageReverseImage = [[CALayer alloc] init];
-	topPageReverseImage.masksToBounds = YES;
-	topPageReverseImage.contentsGravity = kCAGravityRight;
-	
-	topPageReverseOverlay = [[CALayer alloc] init];
-	topPageReverseOverlay.backgroundColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.8] CGColor];
-	
-	topPageReverseShading = [[CAGradientLayer alloc] init];
-	topPageReverseShading.colors = [NSArray arrayWithObjects:
-									(id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
-									(id)[[UIColor clearColor] CGColor],
-									nil];
-	topPageReverseShading.startPoint = CGPointMake(1,0.5);
-	topPageReverseShading.endPoint = CGPointMake(0,0.5);
+//	topPageReverse = [[CALayer alloc] init];
+//	topPageReverse.backgroundColor = [[UIColor whiteColor] CGColor];
+//	topPageReverse.masksToBounds = YES;
+//	
+//	topPageReverseImage = [[CALayer alloc] init];
+//	topPageReverseImage.masksToBounds = YES;
+//	topPageReverseImage.contentsGravity = kCAGravityRight;
+//	
+//	topPageReverseOverlay = [[CALayer alloc] init];
+//	topPageReverseOverlay.backgroundColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.8] CGColor];
+//	
+//	topPageReverseShading = [[CAGradientLayer alloc] init];
+//	topPageReverseShading.colors = [NSArray arrayWithObjects:
+//									(id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
+//									(id)[[UIColor clearColor] CGColor],
+//									nil];
+//	topPageReverseShading.startPoint = CGPointMake(1,0.5);
+//	topPageReverseShading.endPoint = CGPointMake(0,0.5);
 	
 	bottomPage = [[CALayer alloc] init];
 	bottomPage.backgroundColor = [[UIColor whiteColor] CGColor];
 	bottomPage.masksToBounds = YES;
 	
-	bottomPageShadow = [[CAGradientLayer alloc] init];
-	bottomPageShadow.colors = [NSArray arrayWithObjects:
-							   (id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
-							   (id)[[UIColor clearColor] CGColor],
-							   nil];
-	bottomPageShadow.startPoint = CGPointMake(0,0.5);
-	bottomPageShadow.endPoint = CGPointMake(1,0.5);
+//	bottomPageShadow = [[CAGradientLayer alloc] init];
+//	bottomPageShadow.colors = [NSArray arrayWithObjects:
+//							   (id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
+//							   (id)[[UIColor clearColor] CGColor],
+//							   nil];
+//	bottomPageShadow.startPoint = CGPointMake(0,0.5);
+//	bottomPageShadow.endPoint = CGPointMake(1,0.5);
 	
     //
     //  Add sublayers to top, bottom, etc layers
@@ -86,18 +86,18 @@ CGFloat distance(CGPoint a, CGPoint b);
 	[topPage addSublayer:topPageShadow];
 	[topPage addSublayer:topPageOverlay];
 	
-    [topPageReverse addSublayer:topPageReverseImage];
-	[topPageReverse addSublayer:topPageReverseOverlay];
-	[topPageReverse addSublayer:topPageReverseShading];
+//    [topPageReverse addSublayer:topPageReverseImage];
+//	[topPageReverse addSublayer:topPageReverseOverlay];
+//	[topPageReverse addSublayer:topPageReverseShading];
 	
-    [bottomPage addSublayer:bottomPageShadow];
+//    [bottomPage addSublayer:bottomPageShadow];
 	
     //
     //  Add layers to view; next page (bottomPage) is below page we're looking at (topPage).
     //
-    [self.layer addSublayer:bottomPage];
 	[self.layer addSublayer:topPage];
-	[self.layer addSublayer:topPageReverse];
+    [self.layer addSublayer:bottomPage];
+//	[self.layer addSublayer:topPageReverse];
 	
 	self.leafEdge = 1.0;
 }
@@ -126,12 +126,12 @@ CGFloat distance(CGPoint a, CGPoint b);
 	[topPage release];
 	[topPageShadow release];
 	[topPageOverlay release];
-	[topPageReverse release];
-	[topPageReverseImage release];
-	[topPageReverseOverlay release];
-	[topPageReverseShading release];
+//	[topPageReverse release];
+//	[topPageReverseImage release];
+//	[topPageReverseOverlay release];
+//	[topPageReverseShading release];
 	[bottomPage release];
-	[bottomPageShadow release];
+//	[bottomPageShadow release];
 	
 	[pageCache release];
 	
@@ -164,7 +164,7 @@ CGFloat distance(CGPoint a, CGPoint b);
         //  Set the view contents for the topPage (the page we're looking at).
         //
 		topPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
-		topPageReverseImage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
+//		topPageReverseImage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
         
         //
         //  Set the bottomPage (next page) contents, if we haven't reached the end of the book.
@@ -182,7 +182,7 @@ CGFloat distance(CGPoint a, CGPoint b);
         //  We've reached the end--no more pages to turn.
         //
 		topPage.contents = nil;
-		topPageReverseImage.contents = nil;
+//		topPageReverseImage.contents = nil;
 		bottomPage.contents = nil;
 	}
 }
@@ -196,30 +196,35 @@ CGFloat distance(CGPoint a, CGPoint b);
 //    leafEdge = 1  =>  topPage.frame.size.width = self.bounds.size.width  =>  stay on current page
 //
 - (void) setLayerFrames {
-	topPage.frame = CGRectMake(self.layer.bounds.origin.x, 
-							   self.layer.bounds.origin.y, 
-							   leafEdge * self.bounds.size.width, 
-							   self.layer.bounds.size.height);
-	topPageReverse.frame = CGRectMake(self.layer.bounds.origin.x + (2*leafEdge-1) * self.bounds.size.width, 
-									  self.layer.bounds.origin.y, 
-									  (1-leafEdge) * self.bounds.size.width, 
-									  self.layer.bounds.size.height);
-	bottomPage.frame = self.layer.bounds;
-	topPageShadow.frame = CGRectMake(topPageReverse.frame.origin.x - 40, 
-									 0, 
-									 40, 
-									 bottomPage.bounds.size.height);
-	topPageReverseImage.frame = topPageReverse.bounds;
-	topPageReverseImage.transform = CATransform3DMakeScale(-1, 1, 1);
-	topPageReverseOverlay.frame = topPageReverse.bounds;
-	topPageReverseShading.frame = CGRectMake(topPageReverse.bounds.size.width - 50, 
-											 0, 
-											 50 + 1, 
-											 topPageReverse.bounds.size.height);
-	bottomPageShadow.frame = CGRectMake(leafEdge * self.bounds.size.width, 
-										0, 
-										40, 
-										bottomPage.bounds.size.height);
+//	topPage.frame = CGRectMake(self.layer.bounds.origin.x, 
+//							   self.layer.bounds.origin.y, 
+//							   leafEdge * self.bounds.size.width, 
+//							   self.layer.bounds.size.height);
+    topPage.frame = self.layer.bounds;
+//	topPageReverse.frame = CGRectMake(self.layer.bounds.origin.x + (2*leafEdge-1) * self.bounds.size.width, 
+//									  self.layer.bounds.origin.y, 
+//									  (1-leafEdge) * self.bounds.size.width, 
+//									  self.layer.bounds.size.height);
+//	bottomPage.frame = self.layer.bounds;
+    bottomPage.frame = CGRectMake(self.layer.bounds.origin.x + leafEdge * self.layer.bounds.size.width, 
+                                  self.layer.bounds.origin.y, 
+                                  self.layer.bounds.size.width, 
+                                  self.layer.bounds.size.height);
+//	topPageShadow.frame = CGRectMake(topPageReverse.frame.origin.x - 40, 
+//									 0, 
+//									 40, 
+//									 bottomPage.bounds.size.height);
+//	topPageReverseImage.frame = topPageReverse.bounds;
+//	topPageReverseImage.transform = CATransform3DMakeScale(-1, 1, 1);
+//	topPageReverseOverlay.frame = topPageReverse.bounds;
+//	topPageReverseShading.frame = CGRectMake(topPageReverse.bounds.size.width - 50, 
+//											 0, 
+//											 50 + 1, 
+//											 topPageReverse.bounds.size.height);
+//	bottomPageShadow.frame = CGRectMake(leafEdge * self.bounds.size.width, 
+//										0, 
+//										40, 
+//										bottomPage.bounds.size.height);
 	topPageOverlay.frame = topPage.bounds;
 }
 
@@ -318,7 +323,7 @@ CGFloat distance(CGPoint a, CGPoint b);
     //  darker as the page is dragged further left, simulating a light source to the right.
     //
 	topPageShadow.opacity = MIN(1.0, 4*(1-leafEdge));
-	bottomPageShadow.opacity = MIN(1.0, 4*leafEdge);
+//	bottomPageShadow.opacity = MIN(1.0, 4*leafEdge);
 	topPageOverlay.opacity = MIN(1.0, 4*(1-leafEdge));
     
     //

@@ -22,17 +22,17 @@
 	CALayer *topPageOverlay;
 	CAGradientLayer *topPageShadow;
 	
-	CALayer *topPageReverse;
-	CALayer *topPageReverseImage;
-	CALayer *topPageReverseOverlay;
-	CAGradientLayer *topPageReverseShading;
+//	CALayer *topPageReverse;
+//	CALayer *topPageReverseImage;
+//	CALayer *topPageReverseOverlay;
+//	CAGradientLayer *topPageReverseShading;
 	
     //
     //  bottomPage is actually the next page--the page that we get a peek at when we start
     //  to turn the top page.
     //
 	CALayer *bottomPage;
-	CAGradientLayer *bottomPageShadow;
+//	CAGradientLayer *bottomPageShadow;
 	
 	CGFloat leafEdge;
 	NSUInteger currentPageIndex;
