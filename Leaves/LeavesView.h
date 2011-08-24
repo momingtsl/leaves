@@ -14,6 +14,10 @@
 @protocol LeavesViewDelegate;
 
 @interface LeavesView : UIView {
+
+    //
+    //  topPage is the current page--the page we're looking at.
+    //
 	CALayer *topPage;
 	CALayer *topPageOverlay;
 	CAGradientLayer *topPageShadow;
@@ -23,6 +27,10 @@
 	CALayer *topPageReverseOverlay;
 	CAGradientLayer *topPageReverseShading;
 	
+    //
+    //  bottomPage is actually the next page--the page that we get a peek at when we start
+    //  to turn the top page.
+    //
 	CALayer *bottomPage;
 	CAGradientLayer *bottomPageShadow;
 	
@@ -32,10 +40,22 @@
 	id<LeavesViewDelegate> delegate;
 	
 	CGSize pageSize;
+    
+    //
+    //  pageCache doubles as our dataSource, but we abstract it out with a property accessor.
+    //
 	LeavesCache *pageCache;
-	CGFloat preferredTargetWidth;
+	
+    CGFloat preferredTargetWidth;
+    
+    //
+    //  This is only used for multi-threading, so ignore it for now.
+    //
 	BOOL backgroundRendering;
 	
+    //
+    //  Used for interaction: touch, drag, etc.
+    //
 	CGPoint touchBeganPoint;
 	BOOL touchIsActive;
 	CGRect nextPageRect, prevPageRect;
