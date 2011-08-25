@@ -38,16 +38,16 @@ CGFloat distance(CGPoint a, CGPoint b);
 	topPage.contentsGravity = kCAGravityLeft;
 	topPage.backgroundColor = [[UIColor whiteColor] CGColor];
 	
-	topPageOverlay = [[CALayer alloc] init];
-	topPageOverlay.backgroundColor = [[[UIColor blackColor] colorWithAlphaComponent:0.2] CGColor];
+//	topPageOverlay = [[CALayer alloc] init];
+//	topPageOverlay.backgroundColor = [[[UIColor blackColor] colorWithAlphaComponent:0.2] CGColor];
 	
-	topPageShadow = [[CAGradientLayer alloc] init];
-	topPageShadow.colors = [NSArray arrayWithObjects:
-							(id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
-							(id)[[UIColor clearColor] CGColor],
-							nil];
-	topPageShadow.startPoint = CGPointMake(1,0.5);
-	topPageShadow.endPoint = CGPointMake(0,0.5);
+//	topPageShadow = [[CAGradientLayer alloc] init];
+//	topPageShadow.colors = [NSArray arrayWithObjects:
+//							(id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
+//							(id)[[UIColor clearColor] CGColor],
+//							nil];
+//	topPageShadow.startPoint = CGPointMake(1,0.5);
+//	topPageShadow.endPoint = CGPointMake(0,0.5);
 	
 //	topPageReverse = [[CALayer alloc] init];
 //	topPageReverse.backgroundColor = [[UIColor whiteColor] CGColor];
@@ -83,8 +83,8 @@ CGFloat distance(CGPoint a, CGPoint b);
     //
     //  Add sublayers to top, bottom, etc layers
     //
-	[topPage addSublayer:topPageShadow];
-	[topPage addSublayer:topPageOverlay];
+//	[topPage addSublayer:topPageShadow];
+//	[topPage addSublayer:topPageOverlay];
 	
 //    [topPageReverse addSublayer:topPageReverseImage];
 //	[topPageReverse addSublayer:topPageReverseOverlay];
@@ -124,8 +124,8 @@ CGFloat distance(CGPoint a, CGPoint b);
 
 - (void)dealloc {
 	[topPage release];
-	[topPageShadow release];
-	[topPageOverlay release];
+//	[topPageShadow release];
+//	[topPageOverlay release];
 //	[topPageReverse release];
 //	[topPageReverseImage release];
 //	[topPageReverseOverlay release];
@@ -231,7 +231,7 @@ CGFloat distance(CGPoint a, CGPoint b);
 //										0, 
 //										40, 
 //										bottomPage.bounds.size.height);
-	topPageOverlay.frame = topPage.bounds;
+//	topPageOverlay.frame = topPage.bounds;
 }
 
 //-------------------------------Delegate notifiers--------------------------------------
@@ -328,9 +328,9 @@ CGFloat distance(CGPoint a, CGPoint b);
     //  Cast a shadow over visible part of topPage when dragging begins. Shadow gets 
     //  darker as the page is dragged further left, simulating a light source to the right.
     //
-	topPageShadow.opacity = MIN(1.0, 4*(1-leafEdge));
+//	topPageShadow.opacity = MIN(1.0, 4*(1-leafEdge));
 //	bottomPageShadow.opacity = MIN(1.0, 4*leafEdge);
-	topPageOverlay.opacity = MIN(1.0, 4*(1-leafEdge));
+//	topPageOverlay.opacity = MIN(1.0, 4*(1-leafEdge));
     
     //
     //  Move page edge and adjust effect layers accordingly.

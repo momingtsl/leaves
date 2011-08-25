@@ -19,8 +19,8 @@
     //  topPage is the current page--the page we're looking at.
     //
 	CALayer *topPage;
-	CALayer *topPageOverlay;
-	CAGradientLayer *topPageShadow;
+//	CALayer *topPageOverlay;
+//	CAGradientLayer *topPageShadow;
 	
 //	CALayer *topPageReverse;
 //	CALayer *topPageReverseImage;
