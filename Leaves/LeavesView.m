@@ -8,11 +8,11 @@
 
 #import "LeavesView.h"
 
-@interface LeavesView () 
-
-@property (assign) CGFloat leafEdge;
-
-@end
+//@interface LeavesView () 
+//
+//@property (assign) CGFloat leafEdge;
+//
+//@end
 
 CGFloat distance(CGPoint a, CGPoint b);
 

@@ -7,11 +7,13 @@
 //
 
 #import "LeavesViewController.h"
+#import "FlipLeavesView.h"
+#import "SlideLeavesView.h"
 
 @implementation LeavesViewController
 
 - (void) initialize {
-   leavesView = [[LeavesView alloc] initWithFrame:CGRectZero];
+   leavesView = [[SlideLeavesView alloc] initWithFrame:CGRectZero];
 }
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle

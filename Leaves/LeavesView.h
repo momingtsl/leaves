@@ -13,8 +13,8 @@
 @protocol LeavesViewDataSource;
 @protocol LeavesViewDelegate;
 
-@interface LeavesView : UIView {
-
+@interface LeavesView : UIView 
+{
     //
     //  topPage is the current page--the page we're looking at.
     //
@@ -34,7 +34,6 @@
 	CALayer *bottomPage;
 //	CAGradientLayer *bottomPageShadow;
 	
-	CGFloat leafEdge;
 	NSUInteger currentPageIndex;
 	NSUInteger numberOfPages;
 	id<LeavesViewDelegate> delegate;
@@ -60,7 +59,12 @@
 	BOOL touchIsActive;
 	CGRect nextPageRect, prevPageRect;
 	BOOL interactionLocked;
+
+@protected
+	CGFloat leafEdge;
 }
+
+@property (assign) CGFloat leafEdge;
 
 @property (assign) id<LeavesViewDataSource> dataSource;
 @property (assign) id<LeavesViewDelegate> delegate;
