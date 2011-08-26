@@ -13,30 +13,18 @@
 
 @implementation SlideLeavesView
 
-- (void) setUpLayers {
-	self.clipsToBounds = YES;
-
-	topPage = [[CALayer alloc] init];
-	topPage.masksToBounds = YES;
-	topPage.contentsGravity = kCAGravityLeft;
-	topPage.backgroundColor = [[UIColor whiteColor] CGColor];
-		
-	bottomPage = [[CALayer alloc] init];
-	bottomPage.backgroundColor = [[UIColor whiteColor] CGColor];
-	bottomPage.masksToBounds = YES;
-	
-	[self.layer addSublayer:topPage];
-    [self.layer addSublayer:bottomPage];
-	
-	self.leafEdge = 1.0;
+- (void) setUpLayers 
+{
+    [super setUpLayers];
+	topPageOverlay = [[CALayer alloc] init];
+	topPageOverlay.backgroundColor = [[[UIColor blackColor] colorWithAlphaComponent:0.2] CGColor];
+    [topPage addSublayer:topPageOverlay];
 }
 
 - (void) setLayerFrames 
-{
-    topPage.frame = CGRectMake(self.layer.bounds.origin.x - (1-leafEdge) * self.layer.bounds.size.width, 
-                               self.layer.bounds.origin.y, 
-                               self.layer.bounds.size.width, 
-                               self.layer.bounds.size.height);
+{	    
+    topPage.frame = self.layer.bounds;
+    topPageOverlay.frame = topPage.bounds;
 
     bottomPage.frame = CGRectMake(self.layer.bounds.origin.x + leafEdge * self.layer.bounds.size.width, 
                                   self.layer.bounds.origin.y, 
@@ -44,28 +32,16 @@
                                   self.layer.bounds.size.height);
 }
 
-- (void) getImages 
-{
-	if (currentPageIndex < numberOfPages) {
-		if (currentPageIndex > 0 && backgroundRendering)
-			[pageCache precacheImageForPageIndex:currentPageIndex-1];
-        
-		topPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
-
-		if (currentPageIndex < numberOfPages - 1)
-			bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 1];
-		
-        [pageCache minimizeToPageIndex:currentPageIndex];
-	} else {
-		topPage.contents = nil;
-		bottomPage.contents = nil;
-	}
-}
-
 - (void) setLeafEdge:(CGFloat)aLeafEdge 
 {
-	leafEdge = aLeafEdge;
-	[self setLayerFrames];
+	topPageOverlay.opacity = MIN(1.0, 4*(1-aLeafEdge));
+    [super setLeafEdge:aLeafEdge];
+}
+
+- (void)dealloc
+{
+    [topPageOverlay release];
+    [super dealloc];
 }
 
 @end

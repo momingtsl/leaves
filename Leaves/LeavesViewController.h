@@ -5,6 +5,9 @@
 //  Created by Tom Brow on 4/18/10.
 //  Copyright Tom Brow 2010. All rights reserved.
 //
+//  Modified by Diego Belfiore
+//  2011 Tatami Software
+//
 
 #import <UIKit/UIKit.h>
 #import "LeavesView.h"

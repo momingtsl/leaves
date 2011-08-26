@@ -13,7 +13,7 @@
 
 @interface SlideLeavesView : LeavesView
 {
-    BOOL overlayMode;
+	CAGradientLayer *topPageOverlay;
 }
 
 @end

@@ -5,6 +5,9 @@
 //  Created by Tom Brow on 4/18/10.
 //  Copyright 2010 Tom Brow. All rights reserved.
 //
+//  Modified by Diego Belfiore
+//  2011 Tatami Software
+//
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
@@ -84,6 +87,10 @@
 
 // refreshes the contents of all pages via the data source methods, much like -[UITableView reloadData]
 - (void) reloadData;
+
+- (void)getImages;
+
+- (void)setUpLayers;
 
 @end
 

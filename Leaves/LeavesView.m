@@ -5,6 +5,9 @@
 //  Created by Tom Brow on 4/18/10.
 //  Copyright 2010 Tom Brow. All rights reserved.
 //
+//  Modified by Diego Belfiore
+//  2011 Tatami Software
+//
 
 #import "LeavesView.h"
 
@@ -157,8 +160,8 @@ CGFloat distance(CGPoint a, CGPoint b);
 //
 //  This is only used for multi-threading, so we'll leave it out for simplicity.
 //
-//		if (currentPageIndex > 0 && backgroundRendering)
-//			[pageCache precacheImageForPageIndex:currentPageIndex-1];
+		if (currentPageIndex > 0 && backgroundRendering)
+			[pageCache precacheImageForPageIndex:currentPageIndex-1];
         
         //
         //  Set the view contents for the topPage (the page we're looking at).
@@ -497,8 +500,8 @@ CGFloat distance(CGPoint a, CGPoint b);
 //
 //  Only used for multi-threading, so ignore for now.
 //
-//		if (currentPageIndex+2 < numberOfPages && backgroundRendering)
-//			[pageCache precacheImageForPageIndex:currentPageIndex+2];
+		if (currentPageIndex+2 < numberOfPages && backgroundRendering)
+			[pageCache precacheImageForPageIndex:currentPageIndex+2];
 
         //
         //  Notify delegate & enable interaction once animation is completed.

@@ -14,13 +14,9 @@
 
 @implementation FlipLeavesView
 
-- (void) setUpLayers {
-	self.clipsToBounds = YES;
-	
-	topPage = [[CALayer alloc] init];
-	topPage.masksToBounds = YES;
-	topPage.contentsGravity = kCAGravityLeft;
-	topPage.backgroundColor = [[UIColor whiteColor] CGColor];
+- (void) setUpLayers 
+{
+    [super setUpLayers];
 	
 	topPageOverlay = [[CALayer alloc] init];
 	topPageOverlay.backgroundColor = [[[UIColor blackColor] colorWithAlphaComponent:0.2] CGColor];
@@ -52,10 +48,6 @@
 	topPageReverseShading.startPoint = CGPointMake(1,0.5);
 	topPageReverseShading.endPoint = CGPointMake(0,0.5);
 	
-	bottomPage = [[CALayer alloc] init];
-	bottomPage.backgroundColor = [[UIColor whiteColor] CGColor];
-	bottomPage.masksToBounds = YES;
-	
 	bottomPageShadow = [[CAGradientLayer alloc] init];
 	bottomPageShadow.colors = [NSArray arrayWithObjects:
 							   (id)[[[UIColor blackColor] colorWithAlphaComponent:0.6] CGColor],
@@ -73,11 +65,12 @@
 
     [bottomPage addSublayer:bottomPageShadow];
 	
-    [self.layer addSublayer:bottomPage];
-	[self.layer addSublayer:topPage];
-	[self.layer addSublayer:topPageReverse];
-	
-	self.leafEdge = 1.0;
+    //
+    //  Swap the order of top/bottom layers
+    //
+    [topPage removeFromSuperlayer];
+    [self.layer addSublayer:topPage];
+    [self.layer addSublayer:topPageReverse];
 }
 
 - (void) setLayerFrames {
@@ -110,22 +103,13 @@
 	topPageOverlay.frame = topPage.bounds;
 }
 
-- (void) getImages {
+- (void) getImages 
+{
+    [super getImages];
 	if (currentPageIndex < numberOfPages) {
-		if (currentPageIndex > 0 && backgroundRendering)
-			[pageCache precacheImageForPageIndex:currentPageIndex-1];
-        
-		topPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
 		topPageReverseImage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
-        
-		if (currentPageIndex < numberOfPages - 1)
-			bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 1];
-
-        [pageCache minimizeToPageIndex:currentPageIndex];
 	} else {
-		topPage.contents = nil;
 		topPageReverseImage.contents = nil;
-		bottomPage.contents = nil;
 	}
 }
 
@@ -141,17 +125,15 @@
 
 - (void)dealloc 
 {
-//	[topPage release];
 	[topPageShadow release];
 	[topPageOverlay release];
+
 	[topPageReverse release];
 	[topPageReverseImage release];
 	[topPageReverseOverlay release];
 	[topPageReverseShading release];
-//	[bottomPage release];
+
 	[bottomPageShadow release];
-	
-//	[pageCache release];
 	
     [super dealloc];
 }
