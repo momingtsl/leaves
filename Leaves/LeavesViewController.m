@@ -16,7 +16,7 @@
 @implementation LeavesViewController
 
 - (void) initialize {
-   leavesView = [[SlideLeavesView alloc] initWithFrame:CGRectZero];
+   leavesView = [[FlipLeavesView alloc] initWithFrame:CGRectZero];
 }
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle

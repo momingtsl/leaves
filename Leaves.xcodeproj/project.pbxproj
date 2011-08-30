@@ -12,6 +12,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		8F02E2121407147100707A17 /* FlipLeavesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F02E2111407147100707A17 /* FlipLeavesView.m */; };
+		8F06D329140D345F0075404F /* PDFSlideExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06D328140D345F0075404F /* PDFSlideExampleViewController.m */; };
+		8F06D32D140D353E0075404F /* PDFScrollExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06D32C140D353E0075404F /* PDFScrollExampleViewController.m */; };
 		8F06FBFA1407D9F7003DC848 /* SlideLeavesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06FBF91407D9F7003DC848 /* SlideLeavesView.m */; };
 		D337E308119B61A5003E5728 /* LeavesCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D337E307119B61A5003E5728 /* LeavesCache.m */; };
 		D33D45A2117BDE0100BA7203 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33D45A1117BDE0100BA7203 /* QuartzCore.framework */; };
@@ -41,6 +43,10 @@
 		8F02E20F140713D400707A17 /* LeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesView.h; sourceTree = "<group>"; };
 		8F02E2101407147100707A17 /* FlipLeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipLeavesView.h; sourceTree = "<group>"; };
 		8F02E2111407147100707A17 /* FlipLeavesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipLeavesView.m; sourceTree = "<group>"; };
+		8F06D327140D345F0075404F /* PDFSlideExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFSlideExampleViewController.h; sourceTree = "<group>"; };
+		8F06D328140D345F0075404F /* PDFSlideExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFSlideExampleViewController.m; sourceTree = "<group>"; };
+		8F06D32B140D353E0075404F /* PDFScrollExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFScrollExampleViewController.h; sourceTree = "<group>"; };
+		8F06D32C140D353E0075404F /* PDFScrollExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFScrollExampleViewController.m; sourceTree = "<group>"; };
 		8F06FBF81407D9F7003DC848 /* SlideLeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideLeavesView.h; sourceTree = "<group>"; };
 		8F06FBF91407D9F7003DC848 /* SlideLeavesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideLeavesView.m; sourceTree = "<group>"; };
 		D337E306119B61A5003E5728 /* LeavesCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesCache.h; sourceTree = "<group>"; };
@@ -92,6 +98,10 @@
 				1D3623250D0F684500981E51 /* LeavesAppDelegate.m */,
 				D33D4A0B117C34F000BA7203 /* ImageExampleViewController.h */,
 				D33D4A0C117C34F000BA7203 /* ImageExampleViewController.m */,
+				8F06D32B140D353E0075404F /* PDFScrollExampleViewController.h */,
+				8F06D32C140D353E0075404F /* PDFScrollExampleViewController.m */,
+				8F06D327140D345F0075404F /* PDFSlideExampleViewController.h */,
+				8F06D328140D345F0075404F /* PDFSlideExampleViewController.m */,
 				D33D4B4F117C473500BA7203 /* PDFExampleViewController.h */,
 				D33D4B50117C473500BA7203 /* PDFExampleViewController.m */,
 				D33D4F3F117E244C00BA7203 /* ExamplesViewController.h */,
@@ -262,6 +272,8 @@
 				D337E308119B61A5003E5728 /* LeavesCache.m in Sources */,
 				8F02E2121407147100707A17 /* FlipLeavesView.m in Sources */,
 				8F06FBFA1407D9F7003DC848 /* SlideLeavesView.m in Sources */,
+				8F06D329140D345F0075404F /* PDFSlideExampleViewController.m in Sources */,
+				8F06D32D140D353E0075404F /* PDFScrollExampleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

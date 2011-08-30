@@ -18,53 +18,25 @@
 
 @interface LeavesView : UIView 
 {
-    //
-    //  topPage is the current page--the page we're looking at.
-    //
 	CALayer *topPage;
-//	CALayer *topPageOverlay;
-//	CAGradientLayer *topPageShadow;
-	
-//	CALayer *topPageReverse;
-//	CALayer *topPageReverseImage;
-//	CALayer *topPageReverseOverlay;
-//	CAGradientLayer *topPageReverseShading;
-	
-    //
-    //  bottomPage is actually the next page--the page that we get a peek at when we start
-    //  to turn the top page.
-    //
 	CALayer *bottomPage;
-//	CAGradientLayer *bottomPageShadow;
 	
-	NSUInteger currentPageIndex;
-	NSUInteger numberOfPages;
-	id<LeavesViewDelegate> delegate;
-	
+	CGFloat leafEdge;
 	CGSize pageSize;
-    
-    //
-    //  pageCache doubles as our dataSource, but we abstract it out with a property accessor.
-    //
-	LeavesCache *pageCache;
-	
     CGFloat preferredTargetWidth;
     
-    //
-    //  This is only used for multi-threading, so ignore it for now.
-    //
-	BOOL backgroundRendering;
+	id<LeavesViewDelegate> delegate;
+	LeavesCache *pageCache;
+    
+	NSUInteger currentPageIndex;
+	NSUInteger numberOfPages;
 	
-    //
-    //  Used for interaction: touch, drag, etc.
-    //
 	CGPoint touchBeganPoint;
 	BOOL touchIsActive;
 	CGRect nextPageRect, prevPageRect;
 	BOOL interactionLocked;
 
-@protected
-	CGFloat leafEdge;
+	BOOL backgroundRendering;
 }
 
 @property (assign) CGFloat leafEdge;
@@ -86,10 +58,9 @@
 @property (assign) BOOL backgroundRendering;
 
 // refreshes the contents of all pages via the data source methods, much like -[UITableView reloadData]
-- (void) reloadData;
+- (void)reloadData;
 
 - (void)getImages;
-
 - (void)setUpLayers;
 
 @end

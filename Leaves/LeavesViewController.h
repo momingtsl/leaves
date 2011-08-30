@@ -21,5 +21,7 @@
 
 - (id)init;
 
+- (void)initialize;
+
 @end
 
