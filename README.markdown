@@ -13,4 +13,4 @@ To add a leaves view controller, subclass LeavesViewController and override the 
 
 
 [1]:https://github.com/brow/leaves/blob/master/README.markdown "Leaves README"
-[2]:https://github.com/diegobelfiore/leaves/raw/multi-style/Resources/preview.png "Leaves Preview"
+[2]:https://github.com/diegobelfiore/leaves/blob/master/Resources/preview.png "Leaves Preview"
