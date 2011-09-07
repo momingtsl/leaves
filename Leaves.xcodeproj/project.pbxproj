@@ -15,7 +15,7 @@
 		8F06D329140D345F0075404F /* PDFSlideExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06D328140D345F0075404F /* PDFSlideExampleViewController.m */; };
 		8F06D32D140D353E0075404F /* PDFScrollExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06D32C140D353E0075404F /* PDFScrollExampleViewController.m */; };
 		8F06FBFA1407D9F7003DC848 /* SlideLeavesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06FBF91407D9F7003DC848 /* SlideLeavesView.m */; };
-		8F8DE711141827BB0017A274 /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F8DE710141827BB0017A274 /* preview.png */; };
+		8F9F4AF914182C4A00161BB0 /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9F4AF814182C4A00161BB0 /* preview.png */; };
 		D337E308119B61A5003E5728 /* LeavesCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D337E307119B61A5003E5728 /* LeavesCache.m */; };
 		D33D45A2117BDE0100BA7203 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33D45A1117BDE0100BA7203 /* QuartzCore.framework */; };
 		D33D4A0D117C34F000BA7203 /* ImageExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33D4A0C117C34F000BA7203 /* ImageExampleViewController.m */; };
@@ -50,7 +50,7 @@
 		8F06D32C140D353E0075404F /* PDFScrollExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFScrollExampleViewController.m; sourceTree = "<group>"; };
 		8F06FBF81407D9F7003DC848 /* SlideLeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideLeavesView.h; sourceTree = "<group>"; };
 		8F06FBF91407D9F7003DC848 /* SlideLeavesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideLeavesView.m; sourceTree = "<group>"; };
-		8F8DE710141827BB0017A274 /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
+		8F9F4AF814182C4A00161BB0 /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		D337E306119B61A5003E5728 /* LeavesCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesCache.h; sourceTree = "<group>"; };
 		D337E307119B61A5003E5728 /* LeavesCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeavesCache.m; sourceTree = "<group>"; };
 		D33D45A1117BDE0100BA7203 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -186,7 +186,7 @@
 		D33D4EC4117D8D4500BA7203 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8F8DE710141827BB0017A274 /* preview.png */,
+				8F9F4AF814182C4A00161BB0 /* preview.png */,
 				D33D4EDA117D8DCD00BA7203 /* Leaves-Info.plist */,
 				D33D4EC9117D8D4500BA7203 /* MainWindow.xib */,
 				D33D4EC5117D8D4500BA7203 /* kitten.jpg */,
@@ -253,7 +253,7 @@
 				D33D4ECF117D8D4500BA7203 /* kitten3.jpg in Resources */,
 				D33D4ED1117D8D4500BA7203 /* MainWindow.xib in Resources */,
 				D33D4ED2117D8D4500BA7203 /* paper.pdf in Resources */,
-				8F8DE711141827BB0017A274 /* preview.png in Resources */,
+				8F9F4AF914182C4A00161BB0 /* preview.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
