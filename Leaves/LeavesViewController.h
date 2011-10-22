@@ -23,5 +23,7 @@
 
 - (void)initialize;
 
+@property(nonatomic, assign) LeavesView* leavesView;
+
 @end
 

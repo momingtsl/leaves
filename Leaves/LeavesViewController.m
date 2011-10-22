@@ -12,16 +12,19 @@
 #import "LeavesViewController.h"
 #import "FlipLeavesView.h"
 #import "SlideLeavesView.h"
+#import "ContinuousSlideLeavesView.h"
 
 @implementation LeavesViewController
 
+@synthesize leavesView;
+
 - (void) initialize {
-   leavesView = [[FlipLeavesView alloc] initWithFrame:CGRectZero];
+   leavesView = [[ContinuousSlideLeavesView alloc] initWithFrame:CGRectZero];
 }
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
 {
-   if (self = [super initWithNibName:nibName bundle:nibBundle]) {
+   if (self == [super initWithNibName:nibName bundle:nibBundle]) {
       [self initialize];
    }
    return self;
