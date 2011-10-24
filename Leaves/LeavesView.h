@@ -35,6 +35,7 @@
 	BOOL touchIsActive;
 	CGRect nextPageRect, prevPageRect;
 	BOOL interactionLocked;
+    BOOL transactionWasPositive;
 
 	BOOL backgroundRendering;
 }
@@ -84,5 +85,8 @@
 // called when the page-turn animation (following a touch-up or drag) completes 
 - (void) leavesView:(LeavesView *)leavesView didTurnToPageAtIndex:(NSUInteger)pageIndex;
 
+
+// called when the central area is tapped
+- (void) leavesViewDidTouchCentralArea:(LeavesView *)leavesView;
 @end
 
