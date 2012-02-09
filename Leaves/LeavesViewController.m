@@ -57,6 +57,7 @@
 	[super loadView];
 	leavesView.frame = self.view.bounds;
 	leavesView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.view.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:leavesView];
 }
 
