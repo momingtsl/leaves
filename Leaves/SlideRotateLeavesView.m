@@ -123,6 +123,11 @@
             pageCache.pageSize = self.bounds.size;
         }
         
+        if([self isLandscape])
+        {
+            currentPageIndex = currentPageIndex - (currentPageIndex % 2);
+        }
+        
 		[self getImages];
 		[self updateTargetRects];
 	//}
