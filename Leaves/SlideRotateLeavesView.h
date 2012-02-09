@@ -13,7 +13,9 @@
 @interface SlideRotateLeavesView : LeavesView
 {
 	CAGradientLayer *topPageOverlay;
-    
+    CAGradientLayer *topPageRightOverlay;
+    CALayer *topRightPage;
+    CALayer *bottomRightPage;
 }
 - (void) updateTargetRects;
 

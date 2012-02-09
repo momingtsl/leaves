@@ -116,16 +116,44 @@ CGFloat distance(CGPoint a, CGPoint b);
 
 - (void) didTurnPageForward {
 	interactionLocked = NO;
-	self.currentPageIndex = self.currentPageIndex + 1;	
+    
+    if([self isLandscape])
+    {
+        self.currentPageIndex = self.currentPageIndex + 2;	
+    }
+    else
+    {
+        self.currentPageIndex = self.currentPageIndex + 1;	
+    }
+    
 	[self didTurnToPageAtIndex:currentPageIndex];
 }
 
 - (BOOL) hasPrevPage {
-	return self.currentPageIndex > 0;
+    if([self isLandscape])
+    {
+        return self.currentPageIndex > 1;
+    }
+    else
+    {
+        return self.currentPageIndex > 0;
+    }
 }
 
 - (BOOL) hasNextPage {
-	return self.currentPageIndex < numberOfPages - 1;
+    if([self isLandscape])
+    {
+        return self.currentPageIndex < numberOfPages - 2;
+    }
+    else
+    {
+        return self.currentPageIndex < numberOfPages - 1;
+    }
+}
+
+- (BOOL) isLandscape 
+{
+    return self.layer.bounds.size.width > self.layer.bounds.size.height;
 }
 
 - (BOOL) touchedNextPage {
@@ -217,7 +245,16 @@ CGFloat distance(CGPoint a, CGPoint b);
 		[CATransaction begin];
 		[CATransaction setValue:(id)kCFBooleanTrue
 						 forKey:kCATransactionDisableActions];
-		self.currentPageIndex = self.currentPageIndex - 1;
+        
+        if([self isLandscape])
+        {
+            self.currentPageIndex = self.currentPageIndex - 2;
+        }
+        else
+        {
+            self.currentPageIndex = self.currentPageIndex - 1;
+        }
+		
 		self.leafEdge = 0.0;
 		[CATransaction commit];
 		touchIsActive = YES;		
@@ -261,13 +298,25 @@ CGFloat distance(CGPoint a, CGPoint b);
 	float duration;
 
 	if ((dragged && self.leafEdge < 0.5) || (!dragged && [self touchedNextPage])) {
-		[self willTurnToPageAtIndex:currentPageIndex+1];
+        if ([self isLandscape]) {
+            [self willTurnToPageAtIndex:currentPageIndex+2];
+        }
+        else
+        {
+            [self willTurnToPageAtIndex:currentPageIndex+1];
+        }
+		
 		self.leafEdge = 0;
 		duration = leafEdge;
 		interactionLocked = YES;
         
 		if (currentPageIndex+2 < numberOfPages && backgroundRendering)
-			[pageCache precacheImageForPageIndex:currentPageIndex+2];
+        {
+            [pageCache precacheImageForPageIndex:currentPageIndex+2];
+            if ([self isLandscape] && (currentPageIndex+3 < numberOfPages)) {
+                [pageCache precacheImageForPageIndex:currentPageIndex+3];
+            }
+        }
 
 		[self performSelector:@selector(didTurnPageForward)
 				   withObject:nil 

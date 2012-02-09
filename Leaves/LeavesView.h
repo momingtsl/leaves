@@ -66,6 +66,8 @@
 - (void)setUpLayers;
 - (void)initialize;
 
+// new method for checking screen orientation 
+- (BOOL) isLandscape;
 @end
 
 
