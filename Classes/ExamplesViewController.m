@@ -15,10 +15,11 @@
 #import "ProceduralExampleViewController.h"
 #import "PDFScrollExampleViewController.h"
 #import "PDFSlideExampleViewController.h"
+#import "PDFSlideRotateExampleViewController.h"
 
 enum {PDF, IMAGE, PROCEDURAL, NUM_EXAMPLES};
 
-enum {SCROLL, SLIDE, NEW_EXAMPLES};
+enum {SCROLL, SLIDE, SLIDE_ROTATE, NEW_EXAMPLES};
 
 @implementation ExamplesViewController
 
@@ -68,6 +69,7 @@ enum {SCROLL, SLIDE, NEW_EXAMPLES};
     switch (row) {
         case SCROLL: return @"Scroll"; break;
         case SLIDE: return @"Slide"; break;
+        case SLIDE_ROTATE: return @"Slide with Rotation"; break;
         default: return @""; break;
     }
 }
@@ -119,6 +121,9 @@ enum {SCROLL, SLIDE, NEW_EXAMPLES};
             break;
         case SLIDE:
             viewController = [[[PDFSlideExampleViewController alloc] init] autorelease];
+            break;
+        case SLIDE_ROTATE:
+            viewController = [[[PDFSlideRotateExampleViewController alloc] init] autorelease];
             break;
         default:
             viewController = [[[UIViewController alloc] init] autorelease];

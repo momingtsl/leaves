@@ -8,6 +8,8 @@
 //  Modified by Diego Belfiore
 //  2011 Tatami Software
 //
+//  Modified by Chris Chan chrischan at igpsd dot com
+//  2012 IGPSD Ltd
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
@@ -62,6 +64,7 @@
 
 - (void)getImages;
 - (void)setUpLayers;
+- (void)initialize;
 
 @end
 
