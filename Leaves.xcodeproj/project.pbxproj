@@ -11,6 +11,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		4BFD8BDF14E43128005EEEBF /* PDFSlideRotateExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD8BDD14E43128005EEEBF /* PDFSlideRotateExampleViewController.m */; };
+		4BFD8BE314E43613005EEEBF /* SlideRotateLeavesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD8BE214E43613005EEEBF /* SlideRotateLeavesView.m */; };
 		8F02E2121407147100707A17 /* FlipLeavesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F02E2111407147100707A17 /* FlipLeavesView.m */; };
 		8F06D329140D345F0075404F /* PDFSlideExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06D328140D345F0075404F /* PDFSlideExampleViewController.m */; };
 		8F06D32D140D353E0075404F /* PDFScrollExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F06D32C140D353E0075404F /* PDFScrollExampleViewController.m */; };
@@ -41,6 +43,10 @@
 		1D6058910D05DD3D006BFB54 /* Leaves.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leaves.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4BFD8BDC14E43128005EEEBF /* PDFSlideRotateExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFSlideRotateExampleViewController.h; sourceTree = "<group>"; };
+		4BFD8BDD14E43128005EEEBF /* PDFSlideRotateExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFSlideRotateExampleViewController.m; sourceTree = "<group>"; };
+		4BFD8BE114E43613005EEEBF /* SlideRotateLeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideRotateLeavesView.h; sourceTree = "<group>"; };
+		4BFD8BE214E43613005EEEBF /* SlideRotateLeavesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideRotateLeavesView.m; sourceTree = "<group>"; };
 		8F02E20F140713D400707A17 /* LeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesView.h; sourceTree = "<group>"; };
 		8F02E2101407147100707A17 /* FlipLeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipLeavesView.h; sourceTree = "<group>"; };
 		8F02E2111407147100707A17 /* FlipLeavesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipLeavesView.m; sourceTree = "<group>"; };
@@ -110,6 +116,8 @@
 				D33D4F40117E244C00BA7203 /* ExamplesViewController.m */,
 				D33D5174117E780300BA7203 /* ProceduralExampleViewController.h */,
 				D33D5175117E780300BA7203 /* ProceduralExampleViewController.m */,
+				4BFD8BDC14E43128005EEEBF /* PDFSlideRotateExampleViewController.h */,
+				4BFD8BDD14E43128005EEEBF /* PDFSlideRotateExampleViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -168,6 +176,8 @@
 				D337E307119B61A5003E5728 /* LeavesCache.m */,
 				D33D4E59117D818100BA7203 /* LeavesViewController.h */,
 				D33D4E5A117D818100BA7203 /* LeavesViewController.m */,
+				4BFD8BE114E43613005EEEBF /* SlideRotateLeavesView.h */,
+				4BFD8BE214E43613005EEEBF /* SlideRotateLeavesView.m */,
 			);
 			path = Leaves;
 			sourceTree = "<group>";
@@ -278,6 +288,8 @@
 				8F06FBFA1407D9F7003DC848 /* SlideLeavesView.m in Sources */,
 				8F06D329140D345F0075404F /* PDFSlideExampleViewController.m in Sources */,
 				8F06D32D140D353E0075404F /* PDFScrollExampleViewController.m in Sources */,
+				4BFD8BDF14E43128005EEEBF /* PDFSlideRotateExampleViewController.m in Sources */,
+				4BFD8BE314E43613005EEEBF /* SlideRotateLeavesView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +301,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chris Chan (Y3RDT53WAH)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -296,7 +309,9 @@
 				GCC_PREFIX_HEADER = Leaves_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Leaves-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = Leaves;
+				PROVISIONING_PROFILE = "F36A87E7-B76D-4835-8DD9-46718EDD614B";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -307,12 +322,15 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chris Chan (Y3RDT53WAH)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Leaves_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Leaves-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = Leaves;
+				PROVISIONING_PROFILE = "F36A87E7-B76D-4835-8DD9-46718EDD614B";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
