@@ -86,6 +86,24 @@
 	//}
 }
 
+- (void) updateTargetRects {
+	CGFloat targetWidth = [self targetWidth];
+	nextPageRect = CGRectMake(self.bounds.size.width - targetWidth,
+							  0,
+							  targetWidth,
+							  self.bounds.size.height);
+	prevPageRect = CGRectMake(0,
+							  0,
+							  targetWidth,
+							  self.bounds.size.height);
+}
+
+- (void) setLeafEdge:(CGFloat)aLeafEdge 
+{
+	topPageOverlay.opacity = MIN(1.0, 4*(1-aLeafEdge));
+    [super setLeafEdge:aLeafEdge];
+}
+
 - (void)dealloc
 {
     [topPageOverlay release];
