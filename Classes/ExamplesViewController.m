@@ -38,6 +38,11 @@ enum {SCROLL, SLIDE, SLIDE_ROTATE, NEW_EXAMPLES};
     [super dealloc];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
+{
+    return YES;
+}
+
 #pragma mark UITableViewDataSource methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

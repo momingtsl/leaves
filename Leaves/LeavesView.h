@@ -13,19 +13,28 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "LeavesCache.h"
+
+
+typedef enum {
+    LeavesViewModeSinglePage,
+    LeavesViewModeFacingPages,
+} LeavesViewMode;
+
+@class LeavesCache;
 
 @protocol LeavesViewDataSource;
 @protocol LeavesViewDelegate;
 
-@interface LeavesView : UIView 
+@interface LeavesView : UIView <UIGestureRecognizerDelegate>
 {
 	CALayer *topPage;
 	CALayer *bottomPage;
-	
-	CGFloat leafEdge;
+    
+    CGFloat leafEdge;
 	CGSize pageSize;
     CGFloat preferredTargetWidth;
+    
+    NSUInteger numberOfVisiblePages;
     
 	id<LeavesViewDelegate> delegate;
 	LeavesCache *pageCache;
@@ -39,7 +48,14 @@
 	BOOL interactionLocked;
 
 	BOOL backgroundRendering;
+    
+    // Single page or facing pages?
+    LeavesViewMode mode;
+    
+    
 }
+
+@property (assign) LeavesViewMode mode;
 
 @property (assign) CGFloat leafEdge;
 
@@ -66,6 +82,8 @@
 - (void)setUpLayers;
 - (void)initialize;
 
+- (void)setUpLayersForViewingMode;
+
 // new method for checking screen orientation 
 - (BOOL) isLandscape;
 @end
@@ -88,6 +106,12 @@
 
 // called when the page-turn animation (following a touch-up or drag) completes 
 - (void) leavesView:(LeavesView *)leavesView didTurnToPageAtIndex:(NSUInteger)pageIndex;
+
+// called when the zooming apply on leavesView
+- (void) leavesView:(LeavesView *)leavesView zoomingCurrentView:(NSUInteger)zoomLevel;
+
+// called when the double Tap on leavesView
+- (void) leavesView:(LeavesView *)leavesView doubleTapCurrentView:(NSUInteger)fooVariable;
 
 @end
 

@@ -17,6 +17,7 @@
 
 - (void) initialize {
    leavesView = [[FlipLeavesView alloc] initWithFrame:CGRectZero];
+   leavesView.mode = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? LeavesViewModeSinglePage : LeavesViewModeFacingPages;
 }
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
@@ -66,6 +67,21 @@
 	leavesView.dataSource = self;
 	leavesView.delegate = self;
 	[leavesView reloadData];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
+{
+    return YES;
+}
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        leavesView.mode = LeavesViewModeSinglePage;
+    } else {
+        leavesView.mode = LeavesViewModeFacingPages;
+    }
 }
 
 @end

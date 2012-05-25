@@ -11,6 +11,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "FlipLeavesView.h"
+#import "LeavesView.h"
 
 @implementation FlipLeavesView
 

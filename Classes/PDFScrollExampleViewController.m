@@ -13,6 +13,7 @@
 - (void)initialize
 {
     leavesView = [[LeavesView alloc] initWithFrame:CGRectZero];
+    leavesView.mode = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? LeavesViewModeSinglePage : LeavesViewModeFacingPages;
 }
 
 @end

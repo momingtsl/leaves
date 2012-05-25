@@ -14,12 +14,8 @@
 - (void)initialize 
 {
     leavesView = [[SlideRotateLeavesView alloc] initWithFrame:CGRectZero];
+    leavesView.mode = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? LeavesViewModeSinglePage : LeavesViewModeFacingPages;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return YES;
-}
 
 @end

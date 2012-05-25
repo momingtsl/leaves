@@ -7,6 +7,9 @@
 //
 
 #import "SlideRotateLeavesView.h"
+#import "LeavesCache.h"
+
+CGFloat lerpf(CGFloat val1, CGFloat val2, CGFloat u);
 
 @implementation SlideRotateLeavesView
 
@@ -43,9 +46,7 @@
 
 - (void) setLayerFrames 
 {	    
-    NSLog(@"%f,%f,%f,%f", self.layer.bounds.origin.x, self.layer.bounds.origin.y,self.layer.bounds.size.width, self.layer.bounds.size.height);
-    
-    if([self isLandscape])
+    if(self.mode == LeavesViewModeFacingPages)
     {
         NSLog(@"Landscape Mode");
         topPage.frame = CGRectMake( self.layer.bounds.origin.x , 
@@ -60,19 +61,16 @@
                                    self.layer.bounds.size.height);
         topPageRightOverlay.frame = topRightPage.bounds;
         
-        bottomPage.frame = CGRectMake(self.layer.bounds.origin.x + leafEdge * self.layer.bounds.size.width + self.layer.bounds.size.width /2, 
+        bottomPage.frame = CGRectMake(self.layer.bounds.origin.x + leafEdge * self.layer.bounds.size.width , 
                                       self.layer.bounds.origin.y, 
                                       self.layer.bounds.size.width/2, 
                                       self.layer.bounds.size.height);
-        bottomRightPage.frame = CGRectMake(self.layer.bounds.origin.x + leafEdge * self.layer.bounds.size.width + self.layer.bounds.size.width /2 + self.layer.bounds.size.width/2, 
+        bottomRightPage.frame = CGRectMake(self.layer.bounds.origin.x + leafEdge * self.layer.bounds.size.width + self.layer.bounds.size.width /2 , 
                                       self.layer.bounds.origin.y, 
                                       self.layer.bounds.size.width/2, 
                                       self.layer.bounds.size.height);
-//        
         topRightPage.opacity = 1;
         bottomRightPage.opacity = 1;
-//        [self.layer addSublayer:topRightPage];
-//        [self.layer addSublayer:bottomRightPage];
         
     }
     else
@@ -86,8 +84,6 @@
                                       self.layer.bounds.size.height);
         topRightPage.opacity = 0;
         bottomRightPage.opacity = 0;
-//        [topRightPage removeFromSuperlayer];
-//        [bottomRightPage removeFromSuperlayer];
     }
     
     
@@ -95,9 +91,8 @@
 
 - (void) layoutSubviews {
 	[super layoutSubviews];	
-	
-	//if (!CGSizeEqualToSize(pageSize, self.bounds.size)) {
-        if([self isLandscape])
+
+        if(self.mode == LeavesViewModeFacingPages)
         {
             pageSize = CGSizeMake(self.bounds.size.width /2, self.bounds.size.height);
         }
@@ -114,7 +109,7 @@
 		
         [CATransaction commit];
         
-        if([self isLandscape])
+        if(self.mode == LeavesViewModeFacingPages)
         {
             pageCache.pageSize = CGSizeMake(self.bounds.size.width /2, self.bounds.size.height);
         }
@@ -123,51 +118,17 @@
             pageCache.pageSize = self.bounds.size;
         }
         
-        if([self isLandscape])
+        if(self.mode == LeavesViewModeFacingPages)
         {
             currentPageIndex = currentPageIndex - (currentPageIndex % 2);
         }
         
 		[self getImages];
 		[self updateTargetRects];
-	//}
 }
 
 - (void) getImages {
-    if([self isLandscape])
-    {
-        NSLog(@"Landscape Mode");
-        if (currentPageIndex < numberOfPages) {
-            if (currentPageIndex > 0 && backgroundRendering)
-                [pageCache precacheImageForPageIndex:currentPageIndex-1];
-            
-            topPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
-            
-            if (currentPageIndex + 1 < numberOfPages) {
-                topRightPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex+1];
-            }
-            
-            if([self isLandscape])
-            {
-                if (currentPageIndex +1 < numberOfPages - 1)
-                    bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 2];
-                
-                if (currentPageIndex +2 < numberOfPages - 1)
-                    bottomRightPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 3];
-            }
-            else
-            {
-                if (currentPageIndex < numberOfPages - 1)
-                    bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 1];
-            }
-            
-            [pageCache minimizeToPageIndex:currentPageIndex];
-        } else {
-            topPage.contents = nil;
-            bottomPage.contents = nil;
-        }
-    }
-    else
+    if(self.mode == LeavesViewModeSinglePage)
     {
         if (currentPageIndex < numberOfPages) {
             if (currentPageIndex > 0 && backgroundRendering)
@@ -178,11 +139,43 @@
             if (currentPageIndex < numberOfPages - 1)
                 bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 1];
             
-            [pageCache minimizeToPageIndex:currentPageIndex];
+            [pageCache minimizeToPageIndex:currentPageIndex viewMode:self.mode];
         } else {
             topPage.contents = nil;
             bottomPage.contents = nil;
         }
+    }
+    else
+    {
+        NSLog(@"Landscape Mode");
+        if (currentPageIndex <= numberOfPages) {
+            if (currentPageIndex > 1 && backgroundRendering) {
+                [pageCache precacheImageForPageIndex:currentPageIndex - 2];
+            }
+            if (currentPageIndex > 2 && backgroundRendering) {
+                [pageCache precacheImageForPageIndex:currentPageIndex - 2];
+            }
+            
+            topPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex];
+            
+            if (currentPageIndex + 1 < numberOfPages) {
+                topRightPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex+1];
+            }
+            
+            if (currentPageIndex +1 < numberOfPages - 1)
+                    bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 2];
+                
+            if (currentPageIndex +2 < numberOfPages - 1)
+                    bottomRightPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 3];
+//            }
+                       
+            [pageCache minimizeToPageIndex:currentPageIndex viewMode:self.mode];
+        } else {
+            topPage.contents = nil;
+            bottomPage.contents = nil;
+        }
+
+        
     }
 }
 
@@ -212,3 +205,7 @@
 }
 
 @end
+
+CGFloat lerpf(CGFloat val1, CGFloat val2, CGFloat u) {
+    return (1 - u) * val1 + u * val2;
+}

@@ -10,11 +10,14 @@
 //
 
 #import "LeavesView.h"
+#import "LeavesCache.h"
 
 
 CGFloat distance(CGPoint a, CGPoint b);
 
 @implementation LeavesView
+
+@synthesize mode;
 
 @synthesize delegate;
 @synthesize leafEdge, currentPageIndex, backgroundRendering, preferredTargetWidth;
@@ -34,12 +37,17 @@ CGFloat distance(CGPoint a, CGPoint b);
 	[self.layer addSublayer:topPage];
     [self.layer addSublayer:bottomPage];
 	
+    //[self setUpLayersForViewingMode];
+    
 	self.leafEdge = 1.0;
+    
 }
 
 - (void) initialize {
 	backgroundRendering = NO;
 	pageCache = [[LeavesCache alloc] initWithPageSize:self.bounds.size];
+    
+    numberOfVisiblePages = 1;
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -80,7 +88,7 @@ CGFloat distance(CGPoint a, CGPoint b);
 		if (currentPageIndex < numberOfPages - 1)
 			bottomPage.contents = (id)[pageCache cachedImageForPageIndex:currentPageIndex + 1];
 		
-        [pageCache minimizeToPageIndex:currentPageIndex];
+        [pageCache minimizeToPageIndex:currentPageIndex viewMode:self.mode];
 	} else {
 		topPage.contents = nil;
 		bottomPage.contents = nil;
@@ -117,38 +125,17 @@ CGFloat distance(CGPoint a, CGPoint b);
 - (void) didTurnPageForward {
 	interactionLocked = NO;
     
-    if([self isLandscape])
-    {
-        self.currentPageIndex = self.currentPageIndex + 2;	
-    }
-    else
-    {
-        self.currentPageIndex = self.currentPageIndex + 1;	
-    }
+    self.currentPageIndex = self.currentPageIndex + numberOfVisiblePages;	
     
 	[self didTurnToPageAtIndex:currentPageIndex];
 }
 
 - (BOOL) hasPrevPage {
-    if([self isLandscape])
-    {
-        return self.currentPageIndex > 1;
-    }
-    else
-    {
-        return self.currentPageIndex > 0;
-    }
+    return self.currentPageIndex > (numberOfVisiblePages - 1);
 }
 
 - (BOOL) hasNextPage {
-    if([self isLandscape])
-    {
-        return self.currentPageIndex < numberOfPages - 2;
-    }
-    else
-    {
-        return self.currentPageIndex < numberOfPages - 1;
-    }
+    return self.currentPageIndex < numberOfPages - numberOfVisiblePages;
 }
 
 - (BOOL) isLandscape 
@@ -211,6 +198,10 @@ CGFloat distance(CGPoint a, CGPoint b);
 
 - (void) setCurrentPageIndex:(NSUInteger)aCurrentPageIndex {
 	currentPageIndex = aCurrentPageIndex;
+    
+    if (self.mode == LeavesViewModeFacingPages && aCurrentPageIndex % 2 != 0) {
+        currentPageIndex = aCurrentPageIndex + 1;
+    }
 	
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue
@@ -246,14 +237,9 @@ CGFloat distance(CGPoint a, CGPoint b);
 		[CATransaction setValue:(id)kCFBooleanTrue
 						 forKey:kCATransactionDisableActions];
         
-        if([self isLandscape])
-        {
-            self.currentPageIndex = self.currentPageIndex - 2;
-        }
-        else
-        {
-            self.currentPageIndex = self.currentPageIndex - 1;
-        }
+
+        self.currentPageIndex = self.currentPageIndex - numberOfVisiblePages;
+
 		
 		self.leafEdge = 0.0;
 		[CATransaction commit];
@@ -298,13 +284,7 @@ CGFloat distance(CGPoint a, CGPoint b);
 	float duration;
 
 	if ((dragged && self.leafEdge < 0.5) || (!dragged && [self touchedNextPage])) {
-        if ([self isLandscape]) {
-            [self willTurnToPageAtIndex:currentPageIndex+2];
-        }
-        else
-        {
-            [self willTurnToPageAtIndex:currentPageIndex+1];
-        }
+        [self willTurnToPageAtIndex:currentPageIndex+numberOfVisiblePages];
 		
 		self.leafEdge = 0;
 		duration = leafEdge;
@@ -313,9 +293,6 @@ CGFloat distance(CGPoint a, CGPoint b);
 		if (currentPageIndex+2 < numberOfPages && backgroundRendering)
         {
             [pageCache precacheImageForPageIndex:currentPageIndex+2];
-            if ([self isLandscape] && (currentPageIndex+3 < numberOfPages)) {
-                [pageCache precacheImageForPageIndex:currentPageIndex+3];
-            }
         }
 
 		[self performSelector:@selector(didTurnPageForward)
@@ -336,6 +313,27 @@ CGFloat distance(CGPoint a, CGPoint b);
 	[CATransaction setValue:[NSNumber numberWithFloat:duration]
 					 forKey:kCATransactionAnimationDuration];
 	[CATransaction commit];
+}
+
+- (void)setMode:(LeavesViewMode)newMode
+{
+    mode = newMode;
+    
+    if (mode == LeavesViewModeSinglePage) {
+        numberOfVisiblePages = 1;
+        if (self.currentPageIndex > numberOfPages - 1) {
+            self.currentPageIndex = numberOfPages - 1;
+        }
+        
+    } else {
+        numberOfVisiblePages = 2;
+        if (self.currentPageIndex % 2 != 0) {
+            self.currentPageIndex++;
+        }
+    }
+    
+    //[self setUpLayersForViewingMode];
+    [self setNeedsLayout];
 }
 
 - (void) layoutSubviews {

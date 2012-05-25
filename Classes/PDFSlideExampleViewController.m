@@ -14,6 +14,7 @@
 - (void)initialize 
 {
     leavesView = [[SlideLeavesView alloc] initWithFrame:CGRectZero];
+    leavesView.mode = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? LeavesViewModeSinglePage : LeavesViewModeFacingPages;
 }
 
 @end
