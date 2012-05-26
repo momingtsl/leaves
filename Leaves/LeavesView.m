@@ -12,6 +12,8 @@
 #import "LeavesView.h"
 #import "LeavesCache.h"
 
+static const CGFloat kMaxScale = 3.0f;
+static const CGFloat kMinScale = 1.0f;
 
 CGFloat distance(CGPoint a, CGPoint b);
 
@@ -48,6 +50,28 @@ CGFloat distance(CGPoint a, CGPoint b);
 	pageCache = [[LeavesCache alloc] initWithPageSize:self.bounds.size];
     
     numberOfVisiblePages = 1;
+    
+    [self setupGuesture];
+}
+
+- (void)setupGuesture
+{
+    pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchZoom:)];
+    [pinchGesture setDelegate:self];
+    [self addGestureRecognizer:pinchGesture];
+	
+    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    [tapGesture setNumberOfTapsRequired:2];
+	[tapGesture setDelegate:self];
+    [self addGestureRecognizer:tapGesture];
+    
+    [self turnPinchOn:NO];
+    [self turnTapOn:NO];
+
+    // When app start zoom and PAN are not active, of course
+	zoomActive = NO;
+	panActive = NO;
+    
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -115,6 +139,18 @@ CGFloat distance(CGPoint a, CGPoint b);
 - (void) didTurnToPageAtIndex:(NSUInteger)index {
 	if ([delegate respondsToSelector:@selector(leavesView:didTurnToPageAtIndex:)])
 		[delegate leavesView:self didTurnToPageAtIndex:index];
+}
+
+- (void)zoomingCurrentView:(NSUInteger)zoomLevel {
+	if ([delegate respondsToSelector:@selector(leavesView:zoomingCurrentView:)]) {
+		[delegate leavesView:self zoomingCurrentView:zoomLevel];
+    }
+}
+
+- (void)doubleTapCurrentView:(NSUInteger)zoomLevel {
+	if ([delegate respondsToSelector:@selector(leavesView:doubleTapCurrentView:)]) {
+        [delegate leavesView:self doubleTapCurrentView:0];
+    }
 }
 
 - (void) didTurnPageBackward {
@@ -355,6 +391,132 @@ CGFloat distance(CGPoint a, CGPoint b);
 		[self updateTargetRects];
 	}
 }
+
+#pragma mark -
+#pragma mark UIGestureRecognizer methods
+
+
+//this method will adjust the anchor point of the gesture recognizer in order for it to zoom towards the direction chosen by the user
+- (void)adjustAnchorPointForGestureRecognizer:(UIPinchGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+		
+        UIView *piece = gestureRecognizer.view;
+		
+		
+        CGPoint locationInView = [gestureRecognizer locationInView:piece];
+        CGPoint locationInSuperview = [gestureRecognizer locationInView:piece.superview];
+        
+        piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.bounds.size.width, locationInView.y / piece.bounds.size.height);
+        piece.center = locationInSuperview;
+    }
+}
+
+
+
+
+// This method will handle the PINCH / ZOOM gesture 
+- (void)pinchZoom:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+	
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {        
+        // Record lastScale
+        lastScale = [gestureRecognizer scale];
+    }
+    
+    if (!zoomActive && [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];//directing the zoom in the right direction
+        
+        zoomActive = YES;
+        if (zoomActive) {
+			UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panMove:)];
+			[panGesture setMaximumNumberOfTouches:2];
+			[panGesture setDelegate:self];
+			[self addGestureRecognizer:panGesture];
+			[panGesture release];
+			
+		}
+        
+        CGFloat currentScale = [[[gestureRecognizer view].layer valueForKeyPath:@"transform.scale"] floatValue];
+        
+        CGFloat newScale = 1 -  (lastScale - [gestureRecognizer scale]); 
+        newScale = MIN(newScale, kMaxScale / currentScale);   
+        newScale = MAX(newScale, kMinScale / currentScale);
+        CGAffineTransform transform = CGAffineTransformScale([[gestureRecognizer view] transform], newScale, newScale);
+        [gestureRecognizer view].transform = transform;
+        
+        [delegate leavesView:self zoomingCurrentView:[gestureRecognizer scale]];	    	
+        zoomActive = NO;
+        lastScale = [gestureRecognizer scale]; 
+	}
+}
+
+// This method will handle the double TAP gesture and will reposition the view at 1:1 scale whether the user tries to zoom out too much
+- (void)doubleTap:(UIGestureRecognizer *)gestureRecognizer {
+	
+	
+	//restore center anchorpoint
+	self.layer.anchorPoint=CGPointMake(0.5f, 0.5f);
+	[gestureRecognizer view].transform = CGAffineTransformIdentity;
+	
+	[[gestureRecognizer view] setCenter:CGPointMake([gestureRecognizer view].frame.size.width / 2, [gestureRecognizer view].frame.size.height / 2)];
+	
+	zoomActive = NO;
+	panActive = NO;
+	
+	NSArray *registeredGestures = self.gestureRecognizers;
+	
+	for (UIGestureRecognizer *gesture in registeredGestures) {
+		if ([gesture isKindOfClass:[UIPanGestureRecognizer class]] ) {
+			// Let remove the PAN / MOVE gesture recognizer
+			[self removeGestureRecognizer:gesture];
+		}
+	}
+	
+	[delegate leavesView:self doubleTapCurrentView:0];		
+	
+	
+}
+
+- (void)doubleTap {
+	
+	self.layer.anchorPoint=CGPointMake(0.5, 0.5);
+	self.transform = CGAffineTransformIdentity;
+	
+	zoomActive = NO;
+	panActive = NO;
+	
+	NSArray *registeredGestures = self.gestureRecognizers;
+	
+	for (UIGestureRecognizer *gesture in registeredGestures) {
+		if ([gesture isKindOfClass:[UIPanGestureRecognizer class]] ) {
+			// Let remove the PAN / MOVE gesture recognizer
+			[self removeGestureRecognizer:gesture];
+		}
+	}
+	
+	[delegate leavesView:self doubleTapCurrentView:0];
+	
+}
+
+// This method will handle the PAN / MOVE gesture 
+- (void)panMove:(UIPanGestureRecognizer *)gestureRecognizer {
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [gestureRecognizer translationInView:[[gestureRecognizer view] superview]];
+        [[gestureRecognizer view] setCenter:CGPointMake([[gestureRecognizer view] center].x + translation.x, [[gestureRecognizer view] center].y + translation.y)];
+        [gestureRecognizer setTranslation:CGPointZero inView:[[gestureRecognizer view] superview]];
+    }
+}
+
+#pragma Multi touch and zooming support
+
+- (void)turnPinchOn:(BOOL)state {
+    pinchGesture.delegate = state ? self : nil;
+}
+
+- (void)turnTapOn:(BOOL)state {
+    tapGesture.delegate = state ? self : nil;
+}
+
 
 @end
 

@@ -52,6 +52,18 @@ typedef enum {
     // Single page or facing pages?
     LeavesViewMode mode;
     
+    // We need to know if ZOOM is active or not
+	BOOL zoomActive;
+	
+	// We also need to know if we can PAN/MOVE (of course only on ZOOM mode)
+	BOOL panActive;
+    
+    // Used to record last scale
+    CGFloat lastScale;
+    
+    UIPinchGestureRecognizer *pinchGesture;
+    UITapGestureRecognizer *tapGesture;
+    
     
 }
 
@@ -86,6 +98,17 @@ typedef enum {
 
 // new method for checking screen orientation 
 - (BOOL) isLandscape;
+
+
+- (void)turnPinchOn:(BOOL)state;
+- (void)turnTapOn:(BOOL)state;
+
+- (void) adjustAnchorPointForGestureRecognizer:(UIPinchGestureRecognizer *)gestureRecognizer;
+- (void) doubleTap:(UIGestureRecognizer *)gestureRecognizer;
+- (void) doubleTap;
+
+- (void)setupGuesture;
+
 @end
 
 
